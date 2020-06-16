@@ -1,4 +1,4 @@
-# Kubectl
+# kubernetes-step-kubectl
 
 This Kubectl step container allows general `kubectl` use and can take `kubectl` commands.
 
@@ -34,7 +34,7 @@ steps:
 ...
 
 - name: kubectl
-  image: projectnebula/kubectl:latest
+  image: relaysh/kubernetes-step-kubectl
   spec:
     command: apply
     args: 
