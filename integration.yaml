@@ -46,3 +46,6 @@ homepage: https://github.com/relay-integrations/relay-kubernetes
 # URL to this integration's source code. Optional. If the homepage is a GitHub
 # link, may be inferred automatically.
 source: git://github.com/relay-integrations/relay-kubernetes.git
+
+tags:
+  - kubernetes
