@@ -24,4 +24,5 @@ if [ -n "${GIT}" ]; then
     FILE_PATH=/workspace/${NAME}/${FILE}
 fi
 
+echo "Running command: kubectl ${COMMAND} ${ARGS} ${FILE_PATH} --namespace ${NS} --kubeconfig ${KUBECONFIG}"
 kubectl ${COMMAND} ${ARGS} ${FILE_PATH} --namespace ${NS} --kubeconfig ${KUBECONFIG}
