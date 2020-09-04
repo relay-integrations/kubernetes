@@ -20,10 +20,54 @@ summary: Kubectl
 # Optional. Markdown.
 description: This Kubectl step container allows general `kubectl` use and can take `kubectl` commands.
 
-
 # URL or path relative to this file to an icon or icons representing this
 # action. Optional. Defaults to the integration icon.
 icon:
+
+schemas:
+  spec:
+    $schema: http://json-schema.org/draft-07/schema#
+    type: object
+    required:
+    - cluster
+    - command
+    properties:
+      cluster:
+        type: object
+        required:
+        - name
+        - connection
+        properties:
+          name:
+            type: string
+          connection:
+            type: string
+      command:
+        type: string
+      args:
+        type: array
+      file:
+        type: string
+      namespace:
+        type: string
+      git:
+        type: object
+        required:
+        - ssh_key
+        - known_hosts
+        - name
+        - repository
+        properties:
+          ssh_key:
+            type: string
+          known_hosts:
+            type: string
+          name:
+            type: string
+          branch:
+            type: string
+          repository:
+            type: string
 
 # The mechanism to use to construct this step. Required. Must be an action
 # builder. See the Builders section below.
