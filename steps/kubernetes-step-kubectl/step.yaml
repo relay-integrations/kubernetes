@@ -41,11 +41,25 @@ schemas:
           name:
             type: string
           connection:
-            type: string
+            type: object
+            required:
+            - clusterServer
+            - certificateAuthority
+            - token
+            properties:
+              clusterServer:
+                type: string
+                format: uri
+              certificateAuthority:
+                type: string
+              token:
+                type: string
       command:
         type: string
       args:
         type: array
+        items:
+          type: string
       file:
         type: string
       namespace:
