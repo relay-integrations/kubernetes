@@ -1,0 +1,99 @@
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "cluster": {
+      "type": "object",
+      "description": "A map of configuration and credentials for accessing a Kubernetes cluster.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "A name for the Kubernetes cluster. Used for referencing it via kubectl contexts."
+        },
+        "connection": {
+          "type": "object",
+          "x-relay-connectionType": "kubernetes",
+          "description": "A Relay Kubernetes connection to use",
+          "properties": {
+            "server": {
+              "type": "string",
+              "description": "Kubernetes cluster server"
+            },
+            "certificateAuthority": {
+              "type": "string",
+              "description": "Kubernetes cluster ca.crt PEM-encoded content"
+            },
+            "token": {
+              "type": "string",
+              "description": "Kubernetes cluster token"
+            }
+          },
+          "required": [
+            "server", 
+            "certificateAuthority", 
+            "token"
+          ]
+        }
+      },
+      "required": [
+        "name", 
+        "connection"
+      ]
+    },
+    "command": {
+      "type": "string",
+      "description": "The command to pass to kubectl. For example, `apply`."
+    },
+    "args": {
+      "type": "string",
+      "description": "A string of arguments for commands other than `apply`."
+    },
+    "file": {
+      "type": "string",
+      "description": "A resource file to use when command is `apply`."
+    },
+    "namespace": {
+      "type": "string",
+      "description": "The namespace to run the command under.",
+      "default": "default"
+    },
+    "git": {
+      "type": "object",
+      "description": "A map of git configuration. If you're using HTTPS, only name and repository are required.",
+      "properties": {
+        "ssh_key": {
+          "type": "string",
+          "description": "The SSH key to use when cloning the git repository. You can pass the key to Relay as a secret. See the example below."
+        },
+        "known_hosts": {
+          "type": "string",
+          "description": "SSH known hosts file. Use a Relay secret to pass the contents of the file into the workflow as a base64-encoded string. See the example below."
+        },
+        "name": {
+          "type": "string",
+          "description": "A directory name for the git clone."
+        },
+        "branch": {
+          "type": "string",
+          "description": "The Git branch to clone.",
+          "default": "master"
+        },
+        "repository": {
+          "type": "string",
+          "description": "The git repository URL."
+        }
+      },
+      "required": [
+        "ssh_key",
+        "name",
+        "repository"
+      ]
+    }
+  },
+  "required": [
+    "cluster",
+    "command"
+  ],
+  "additionalProperties": false
+}
