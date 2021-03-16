@@ -30,14 +30,14 @@
             }
           },
           "required": [
-            "server", 
-            "certificateAuthority", 
+            "server",
+            "certificateAuthority",
             "token"
           ]
         }
       },
       "required": [
-        "name", 
+        "name",
         "connection"
       ]
     },
@@ -60,15 +60,22 @@
     },
     "git": {
       "type": "object",
-      "description": "A map of git configuration. If you're using HTTPS, only name and repository are required.",
+      "description": "A git repository containing Kubernetes manifests",
       "properties": {
-        "ssh_key": {
-          "type": "string",
-          "description": "The SSH key to use when cloning the git repository. You can pass the key to Relay as a secret. See the example below."
-        },
-        "known_hosts": {
-          "type": "string",
-          "description": "SSH known hosts file. Use a Relay secret to pass the contents of the file into the workflow as a base64-encoded string. See the example below."
+        "connection": {
+          "type": "object",
+          "x-relay-connectionType": "ssh",
+          "description": "A Relay SSH connection to use",
+          "properties": {
+            "sshKey": {
+              "type": "string",
+              "description": "The SSH key to use when cloning the git repository."
+            },
+            "knownHosts": {
+              "type": "string",
+              "description": "SSH known hosts file."
+            }
+          }
         },
         "name": {
           "type": "string",
@@ -85,7 +92,6 @@
         }
       },
       "required": [
-        "ssh_key",
         "name",
         "repository"
       ]
