@@ -11,19 +11,19 @@ build:
 publish:
   repository: relaysh/kubernetes-step-kubectl
 schemas:
-  spec: 
+  spec:
     source: file
     file: spec.schema.json
 examples:
-- summary: Execute kubectl apply 
+- summary: Execute kubectl apply
   content:
     apiVersion: v1
     kind: Step
     name: kubectl-command
     image: relaysh/kubernetes-step-kubectl
-    spec: 
+    spec:
       command: apply
-      args: 
+      args:
       - "-k"
       # - "dir/" # Example options
       file: !Parameter file # Example: infra/resources.yaml
@@ -31,19 +31,17 @@ examples:
       cluster:
         name: my-cluster
         connection: !Connection { type: kubernetes, name: my-cluster }
-      git: 
-        ssh_key: !Secret ssh_key
-        known_hosts: !Secret known_hosts
-        name: !Parameter my-repo # Example: my-git-repo 
-        branch: !Parameter branch # Example: main 
+      git:
+        name: !Parameter my-repo # Example: my-git-repo
+        branch: !Parameter branch # Example: main
         repository: !Parameter repository # Example: https://github.com/relay-integrations/relay-kubernetes
-- summary: Execute kubectl get nodes 
+- summary: Execute kubectl get nodes
   content:
     apiVersion: v1
     kind: Step
     name: kubectl-command
     image: relaysh/kubernetes-step-kubectl
-    spec: 
+    spec:
       command: "get nodes"
       namespace: !Parameter namespace # Example: default
       cluster:
