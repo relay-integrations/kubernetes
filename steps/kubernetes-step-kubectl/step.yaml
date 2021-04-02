@@ -3,7 +3,7 @@ kind: Step
 name: kubernetes-step-kubectl
 version: 3
 summary: Run kubectl command
-description: This Kubectl step container allows general `kubectl` use and can take `kubectl` commands.
+description: Provides general `kubectl` use and can take `kubectl` commands.
 icon:
 build:
   apiVersion: build/v1
