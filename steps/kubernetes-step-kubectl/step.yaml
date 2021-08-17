@@ -1,19 +1,24 @@
 apiVersion: integration/v1
 kind: Step
-name: kubernetes-step-kubectl
+name: kubectl
 version: 3
 summary: Run kubectl command
-description: Provides general `kubectl` use and can take `kubectl` commands.
-icon:
+
+description: |
+  Provides general `kubectl` use and can take `kubectl` commands.
+
 build:
   apiVersion: build/v1
   kind: Docker
+
 publish:
   repository: relaysh/kubernetes-step-kubectl
+
 schemas:
   spec:
     source: file
     file: spec.schema.json
+
 examples:
 - summary: Execute kubectl apply
   content:
@@ -23,18 +28,15 @@ examples:
     image: relaysh/kubernetes-step-kubectl
     spec:
       command: apply
-      args:
-      - "-k"
-      # - "dir/" # Example options
-      file: !Parameter file # Example: infra/resources.yaml
-      namespace: !Parameter namespace # Example: default
+      file: ${parameters.file} # Example: infra/resources.yaml
+      namespace: ${parameters.namespace} # Example: default
       cluster:
         name: my-cluster
-        connection: !Connection { type: kubernetes, name: my-cluster }
+        connection: ${connections.kubernetes.my-cluster}
       git:
-        name: !Parameter my-repo # Example: my-git-repo
-        branch: !Parameter branch # Example: main
-        repository: !Parameter repository # Example: https://github.com/relay-integrations/relay-kubernetes
+        name: ${parameters.my-repo} # Example: my-git-repo
+        branch: ${parametes.branch} # Example: main
+        repository: ${parameters.repository} # Example: https://github.com/relay-integrations/relay-kubernetes
 - summary: Execute kubectl get nodes
   content:
     apiVersion: v1
@@ -42,8 +44,8 @@ examples:
     name: kubectl-command
     image: relaysh/kubernetes-step-kubectl
     spec:
-      command: "get nodes"
-      namespace: !Parameter namespace # Example: default
+      command: get pods
+      namespace: ${parameters.namespace} # Example: default
       cluster:
         name: my-cluster
-        connection: !Connection { type: kubernetes, name: my-cluster }
+        connection: ${connections.kubernetes.my-cluster}
